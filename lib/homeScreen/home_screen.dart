@@ -24,7 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      const Text("Add todo"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text("Add todo"),
+                          IconButton(onPressed: () {
+                            Navigator.pop(context);
+                          }, icon: const Icon(Icons.cancel))
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       TextFormField(
                         maxLines: 4,
                         decoration: const InputDecoration(
@@ -38,14 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6),),
-                          fixedSize: Size(MediaQuery.sizeOf(context).width, 30)
-                        ),
+                            backgroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                side: BorderSide.none),
+                            fixedSize:
+                                Size(MediaQuery.sizeOf(context).width, 30)),
                         onPressed: () {},
-                        child: const Text("Add"),
+                        child: const Text(
+                          "Add",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
@@ -57,7 +77,31 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView.separated(
         itemCount: 10,
         itemBuilder: (context, index) => (ListTile(
-          title: const Text("I have to do my Homework for office"),
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Action"),
+                    actions: [
+                      ListTile(
+                        leading: const Icon(Icons.edit),
+                        title: const Text("Edit"),
+                        onTap: () {},
+                      ),
+                      const Divider(
+                        height: 0,
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.delete),
+                        title: const Text("Delete"),
+                        onTap: () {},
+                      )
+                    ],
+                  );
+                });
+          },
+          title: const Text("I have to do my Homework"),
           subtitle: const Text("4-04-20"),
           trailing: const Text("pending"),
           leading: CircleAvatar(
