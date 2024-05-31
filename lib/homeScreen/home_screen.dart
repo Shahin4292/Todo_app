@@ -20,56 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) {
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text("Add todo"),
-                          IconButton(onPressed: () {
-                            Navigator.pop(context);
-                          }, icon: const Icon(Icons.cancel))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        maxLines: 4,
-                        decoration: const InputDecoration(
-                          // fillColor: Colors.grey,
-                          // filled: true,
-                          hintText: "Add todo work",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(6),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                side: BorderSide.none),
-                            fixedSize:
-                                Size(MediaQuery.sizeOf(context).width, 30)),
-                        onPressed: () {},
-                        child: const Text(
-                          "Add",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return const UpdateNewModal();
               });
         },
         child: const Icon(Icons.add),
@@ -86,8 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     actions: [
                       ListTile(
                         leading: const Icon(Icons.edit),
-                        title: const Text("Edit"),
-                        onTap: () {},
+                        title: const Text("Update"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          showModalBottomSheet(context: context, builder: (context){
+                            return const UpdateNewModal();
+                          });
+                        },
                       ),
                       const Divider(
                         height: 0,
@@ -117,3 +73,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
